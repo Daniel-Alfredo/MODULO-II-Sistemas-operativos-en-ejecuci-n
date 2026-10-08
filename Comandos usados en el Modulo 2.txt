@@ -1,0 +1,56 @@
+Práctica 1
+# 1. Actualizar repositorios e paquetes
+sudo apt update && sudo apt upgrade -y
+
+# 2. Enumerar los repositorios en uso
+cat /etc/apt/sources.list
+ls -la /etc/apt/sources.list.d/
+
+# 3. Buscar la herramienta en el cache de repositorios
+apt search bashtop
+
+# 4. Agregar PPA e instalar (si no está disponible por defecto)
+sudo add-apt-repository ppa:bashtop-monitor/bashtop -y
+sudo apt update
+sudo apt install bashtop -y
+
+# 5. Desinstalar eliminando archivos de configuración (purge)
+sudo apt purge bashtop -y
+
+# 6. Eliminar dependencias huérfanas/no utilizadas
+sudo apt autoremove --purge -y
+
+Práctica 2
+# 1 y 2. Abrir el editor de cron
+crontab -e
+
+# Agregar las siguientes dos líneas al final del archivo de crontab y guardar:
+# 0 23 * * * apt update && apt upgrade -y
+# 0 3 * * 0 /sbin/shutdown -r now
+
+# 3. Tarea programada con 'at' (revisar 'ls /tmp' antes y después)
+ls /tmp
+echo "rm -rf /tmp/*" | at now + 1 minute
+# Espere 1 minuto a que se ejecute la tarea
+ls /tmp
+
+Práctica 3
+
+# 1. Formatear el nuevo disco/partición como ext4
+sudo mkfs.ext4 /dev/sdb
+
+# 2. Crear carpeta en el escritorio y montar la unidad
+mkdir -p ~/Escritorio/mi_disco
+sudo mount /dev/sdb ~/Escritorio/mi_disco
+
+# 3. Crear el archivo dentro del directorio montado
+sudo touch ~/Escritorio/mi_disco/AdrianAlcantara.txt
+
+# 4. Desmontar la unidad
+sudo umount ~/Escritorio/mi_disco
+
+# 5. Montar en /mnt
+sudo mount /dev/sdb /mnt
+
+# 6. Comprobar que el archivo continúa ahí
+ls -l /mnt
